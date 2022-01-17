@@ -188,5 +188,26 @@ namespace pk3DS.Core
                              .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
                              .ToArray();
         }
+        
+        // General Utility
+        public static string[] GetHexLines(byte[] data, int count = 4)
+        {
+            data ??= Array.Empty<byte>();
+            // Generates an x-byte wide space separated string array; leftovers included at the end.
+            string[] s = new string[(data.Length/count) + (data.Length % count > 0 ? 1 : 0)];
+            for (int i = 0; i < s.Length;i++)
+                s[i] = BitConverter.ToString(data.Skip(i*count).Take(count).ToArray()).Replace('-', ' ');
+            return s;
+        }
+
+        public static string[] GetHexLines(uint[] data)
+        {
+            data ??= Array.Empty<uint>();
+            // Generates an 4-byte wide space separated string array.
+            string[] s = new string[data.Length];
+            for (int i = 0; i < s.Length; i++)
+                s[i] = BitConverter.ToString(BitConverter.GetBytes(data[i])).Replace('-', ' ');
+            return s;
+        }
     }
 }

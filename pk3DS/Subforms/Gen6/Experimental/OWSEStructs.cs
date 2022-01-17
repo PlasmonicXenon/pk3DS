@@ -430,7 +430,7 @@ namespace pk3DS
             public EntityTrigger1[] Triggers1;
             public EntityTrigger2[] Triggers2;
 
-            public Script Script;
+            public Amx Script;
 
             public ZoneEntities(byte[] data)
             {
@@ -474,7 +474,7 @@ namespace pk3DS
                 // Load Script Data
                 int len = br.ReadInt32();
                 br.BaseStream.Position -= 4;
-                Script = new Script(br.ReadBytes(len));
+                Script = new Amx(br.ReadBytes(len));
             }
 
             public byte[] Write()
@@ -752,12 +752,12 @@ namespace pk3DS
         public class ZoneScript
         {
             public byte[] Data; // File details unknown.
-            public Script Script;
+            public Amx Script;
 
             public ZoneScript(byte[] data)
             {
                 Data = data;
-                Script = new Script(data);
+                Script = new Amx(data);
             }
 
             public byte[] Write()

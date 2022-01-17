@@ -197,9 +197,10 @@ namespace pk3DS
 
             // Process Scripts
             var script = CurrentZone.Entities.Script;
-            if (script.Raw.Length > 4)
+            if (script.Data.Length > 4)
             {
-                RTB_OS.Lines = Scripts.GetHexLines(script.Raw);
+                //RTB_OS.Lines = Scripts.GetHexLines(script.Raw);
+                RTB_OS.Lines = Scripts.GetHexLines(script.Data);
                 L_OWSCDesc.Text = script.Info;
 
                 uint[] Instructions = script.DecompressedInstructions;
@@ -208,7 +209,8 @@ namespace pk3DS
                 if (script.DecompressedLength / 4 != Instructions.Length)
                     RTB_OWSCMD.Text = RTB_OSP.Text = "DCMP FAIL";
                 else
-                    RTB_OSP.Lines = script.ParseScript.Concat(script.ParseMoves).ToArray();
+                    //RTB_OSP.Lines = script.ParseScript.Concat(script.ParseMoves).ToArray();
+                    RTB_OSP.Lines = script.ParseScript.Concat(script.DataChunk).ToArray();
             }
             else
             {
@@ -219,9 +221,11 @@ namespace pk3DS
         private void GetScriptData()
         {
             var script = CurrentZone.MapScript.Script;
-            if (script.Raw.Length > 4)
+            //if (script.Raw.Length > 4)
+            if (script.Data.Length > 4)
             {
-                RTB_MS.Lines = Scripts.GetHexLines(script.Raw);
+                //RTB_MS.Lines = Scripts.GetHexLines(script.Raw);
+                RTB_MS.Lines = Scripts.GetHexLines(script.Data);
                 L_MSSCDesc.Text = script.Info;
 
                 uint[] Instructions = script.DecompressedInstructions;
@@ -230,7 +234,8 @@ namespace pk3DS
                 if (script.DecompressedLength / 4 != Instructions.Length)
                     RTB_MSCMD.Text = RTB_OSP.Text = "DCMP FAIL";
                 else
-                    RTB_MSP.Lines = script.ParseScript.Concat(script.ParseMoves).ToArray();
+                    //RTB_MSP.Lines = script.ParseScript.Concat(script.ParseMoves).ToArray();
+                    RTB_MSP.Lines = script.ParseScript.Concat(script.DataChunk).ToArray();
             }
             else
             {
